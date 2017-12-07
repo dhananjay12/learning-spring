@@ -6,6 +6,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,22 +30,51 @@ public class EmployeeController {
   public ResponseEntity<?> updateSalary(@PathVariable int id, @RequestParam Double salary) {
     Employee aEmployee = repository.findOne(id);
     if (aEmployee == null) {
-      VndErrors vndErrors = new VndErrors("" + id, String.format("employee %s not found", "" + id));
-      HttpHeaders httpHeaders = new HttpHeaders();
-      httpHeaders.setContentType(MediaType.parseMediaType("application/vnd.errors"));
-      return new ResponseEntity(vndErrors, httpHeaders, HttpStatus.NOT_FOUND);
+      throw new EmployeeNotFoundException(id);
     }
     aEmployee.setSalary(salary);
     repository.save(aEmployee);
     return ResponseEntity.accepted().build();
   }
 
-  @GetMapping(value = "/getsdById/{id}")
+  @GetMapping(value = "/getById/{id}")
   public ResponseEntity<?> getById(@PathVariable int id) {
     Employee aEmployee = repository.findOne(id);
     if (aEmployee == null) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+      throw new EmployeeNotFoundException(id);
     }
     return ResponseEntity.ok(aEmployee);
+  }
+}
+
+@ControllerAdvice(annotations = RestController.class)
+class EmployeeControllerErrorControllerAdvice {
+
+  @ExceptionHandler(EmployeeNotFoundException.class)
+  public ResponseEntity<VndErrors> employeeNotFoundException(EmployeeNotFoundException e) {
+    return errorResponseEntity(e, HttpStatus.NOT_FOUND, e.getEmployeeId() + "");
+  }
+
+  protected <E extends Exception> ResponseEntity<VndErrors> errorResponseEntity(
+      E e, HttpStatus httpstatus, String logref) {
+    MediaType mediaType = MediaType.parseMediaType("application/vnd.errors");
+    String msg =
+        StringUtils.hasText(e.getMessage()) ? e.getMessage() : e.getClass().getSimpleName();
+    HttpHeaders httpHeaders = new HttpHeaders();
+    httpHeaders.setContentType(mediaType);
+    return new ResponseEntity<VndErrors>(new VndErrors(logref, msg), httpHeaders, httpstatus);
+  }
+}
+
+class EmployeeNotFoundException extends RuntimeException {
+  private int employeeId;
+
+  public EmployeeNotFoundException(int id) {
+    super("Employee#" + id + " not found");
+    this.employeeId = id;
+  }
+
+  public int getEmployeeId() {
+    return employeeId;
   }
 }
