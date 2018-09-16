@@ -12,9 +12,10 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.LocalServerPort;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.jayway.restassured.RestAssured;
@@ -23,6 +24,7 @@ import com.jayway.restassured.specification.RequestSpecification;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@AutoConfigureRestDocs
 public class EmployeeControllerTest {
 
   @LocalServerPort private int serverPort;
@@ -85,6 +87,6 @@ public class EmployeeControllerTest {
             .header("id");
 
     assertThat(aEmployee.getFname())
-        .isEqualTo(employeeRepository.findOne(Integer.parseInt(id)).getFname());
+        .isEqualTo(employeeRepository.findById(Integer.parseInt(id)).get().getFname());
   }
 }

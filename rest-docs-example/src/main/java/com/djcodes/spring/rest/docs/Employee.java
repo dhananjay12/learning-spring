@@ -19,7 +19,6 @@ public class Employee {
 
   @JsonView(Views.ViewOnly.class)
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id")
   public int id;
 

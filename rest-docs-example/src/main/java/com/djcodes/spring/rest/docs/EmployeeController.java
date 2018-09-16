@@ -41,7 +41,7 @@ public class EmployeeController {
 
   @GetMapping(value = "/getById/{id}")
   public ResponseEntity<?> getById(@PathVariable int id) {
-    Employee aEmployee = repository.findOne(id);
+    Employee aEmployee = repository.findById(id).orElse(null);
     if (aEmployee == null) {
       throw new EmployeeNotFoundException(id);
     }
