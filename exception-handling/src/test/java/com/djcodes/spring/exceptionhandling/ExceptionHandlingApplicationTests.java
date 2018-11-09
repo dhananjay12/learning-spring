@@ -1,4 +1,4 @@
-package com.djcodes.spring.rest.errorhandling;
+package com.djcodes.spring.exceptionhandling;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ErrorHandlingApplicationTests {
+public class ExceptionHandlingApplicationTests {
 
 	@Test
 	public void contextLoads() {

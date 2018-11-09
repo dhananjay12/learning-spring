@@ -1,12 +1,12 @@
-package com.djcodes.spring.rest.errorhandling;
+package com.djcodes.spring.exceptionhandling;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ErrorHandlingApplication {
+public class ExceptionHandlingApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ErrorHandlingApplication.class, args);
+		SpringApplication.run(ExceptionHandlingApplication.class, args);
 	}
 }
