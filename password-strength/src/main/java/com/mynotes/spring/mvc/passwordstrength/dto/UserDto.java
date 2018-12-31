@@ -3,6 +3,8 @@ package com.mynotes.spring.mvc.passwordstrength.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import com.mynotes.spring.mvc.passwordstrength.constraint.ValidPassword;
+
 public class UserDto {
 
     @NotEmpty
@@ -12,6 +14,7 @@ public class UserDto {
     @NotEmpty
     private String email;
 
+    @ValidPassword
     private String password;
 
     public String getName() {
