@@ -11,7 +11,7 @@
 
 Employee API documentation generated from unit tests with Spring REST Docs.
 
-=== POST /customers
+=== POST /employee
 
 .curl sample request
 include::{snippets}/create-employee-example/http-request.adoc[]
@@ -22,17 +22,17 @@ include::{snippets}/create-employee-example/request-fields.adoc[]
 .Response fields
 include::{snippets}/create-employee-example/response-fields.adoc[]
 
-=== GET /customer/{customerId}
+=== GET /employee/{id}
 
 
 .curl sample request
-include::{snippets}/shouldGetOneCustomer/curl-request.adoc[]
+include::{snippets}/get-employee-by-id/http-request.adoc[]
 .HTTP Response
-include::{snippets}/shouldGetOneCustomer/http-response.adoc[]
+include::{snippets}/get-employee-by-id/http-response.adoc[]
 .Request parameters
-include::{snippets}/shouldGetOneCustomer/path-parameters.adoc[]
+include::{snippets}/get-employee-by-id/path-parameters.adoc[]
 .Output
-include::{snippets}/shouldGetOneCustomer/response-fields.adoc[]
+include::{snippets}/get-employee-by-id/response-fields.adoc[]
 
 = Generated documentation
 
