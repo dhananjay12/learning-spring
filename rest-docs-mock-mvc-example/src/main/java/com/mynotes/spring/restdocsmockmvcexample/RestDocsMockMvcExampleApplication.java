@@ -1,12 +1,14 @@
-package com.djcodes.spring.rest.docs;
+package com.mynotes.spring.restdocsmockmvcexample;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApplicationLauncher {
+public class RestDocsMockMvcExampleApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApplicationLauncher.class, args);
+		SpringApplication.run(RestDocsMockMvcExampleApplication.class, args);
 	}
+
 }
+
