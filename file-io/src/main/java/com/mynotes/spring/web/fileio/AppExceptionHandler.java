@@ -1,16 +1,20 @@
 package com.mynotes.spring.web.fileio;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+@ControllerAdvice
 public class AppExceptionHandler {
 
-    @ResponseBody
-    @ExceptionHandler(value = FileStorageException.class)
-    public ResponseEntity<?> handleException(FileStorageException exception) {
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(exception.getMsg());
+    @ExceptionHandler(FileStorageException.class)
+    public ModelAndView handleException(FileStorageException exception, RedirectAttributes redirectAttributes) {
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("message", exception.getMsg());
+        mav.setViewName("error");
+        return mav;
+
     }
 }
