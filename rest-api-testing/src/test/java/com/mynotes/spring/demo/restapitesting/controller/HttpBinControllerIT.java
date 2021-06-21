@@ -65,6 +65,8 @@ public class HttpBinControllerIT {
             public MockResponse dispatch(RecordedRequest request) {
                 switch (request.getPath()) {
                     case "/get":
+                        if(!request.getHeader("foo").isEmpty() &&
+                                request.getHeader("foo").equalsIgnoreCase("fooValue"))
                         return new MockResponse().setResponseCode(200).setBody("test");
                 }
                 return new MockResponse().setResponseCode(404);
