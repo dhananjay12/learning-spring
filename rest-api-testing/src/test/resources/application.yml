@@ -1,3 +1,27 @@
 eureka:
   client:
     enabled: false
+
+spring:
+  cloud:
+    service-registry:
+      auto-registration:
+        enabled: false
+    discovery:
+      client:
+        simple:
+          local:
+            instances:
+              - instanceId: foo1
+                serviceId: localhost
+                host: localhost
+                port: 9876
+      enabled: false
+    loadbalancer:
+      enabled: false
+      ribbon:
+        enabled: false
+      cache:
+        enabled: false
+      retry:
+        enabled: false
